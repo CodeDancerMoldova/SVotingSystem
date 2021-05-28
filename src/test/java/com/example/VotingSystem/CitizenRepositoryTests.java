@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
@@ -22,7 +24,7 @@ public class CitizenRepositoryTests {
     private TestEntityManager testEntityManager;
 
     @Test
-    public void testcrateCitizen()
+    public void testcreateCitizen()
     {
         Citizen citizen = new Citizen();
         citizen.setCity("Chisinau");
@@ -37,8 +39,7 @@ public class CitizenRepositoryTests {
 
     @Test
     public  void testFindCitizenByIDC(){
-        String idc = "b221225";
-        Citizen citizen = citizenRepo.findByIDC(idc);
-        assertThat(citizen).isNotNull();
+        Citizen citizenByIDC = citizenRepo.findCitizenByIDC("b121313");
+        assertThat(citizenByIDC).isNotNull();
     }
 }

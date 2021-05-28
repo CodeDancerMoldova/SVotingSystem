@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CitizenRepo extends JpaRepository<Citizen,Long>{
-      @Query("select u from Citizen u where u.IDC = ?1")
-      public Citizen findByIDC(String IDC);
+      public Citizen findCitizenByIDC(String idc);
 }

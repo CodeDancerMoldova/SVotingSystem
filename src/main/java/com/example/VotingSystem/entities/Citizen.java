@@ -12,7 +12,16 @@ import javax.persistence.*;
 public class Citizen {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "citizen_sequence",
+            sequenceName = "citizen_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "citizen_sequence"
+    )
+
     private int id;
     private String username;
     private String lastName;
@@ -20,5 +29,14 @@ public class Citizen {
     private String IDC;
     private String city;
     private String street;
+
+    public Citizen(String username, String lastName, Boolean hasVoted, String IDC, String city, String street) {
+        this.username = username;
+        this.lastName = lastName;
+        this.hasVoted = hasVoted;
+        this.IDC = IDC;
+        this.city = city;
+        this.street = street;
+    }
 }
 

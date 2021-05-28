@@ -1,24 +1,42 @@
 package com.example.VotingSystem.Controllers;
 
-import com.example.VotingSystem.entities.Candidate;
+import com.example.VotingSystem.Services.CitizenService;
 import com.example.VotingSystem.entities.Citizen;
-import com.example.VotingSystem.repositories.CandidateRepo;
-import com.example.VotingSystem.repositories.CitizenRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
+
 @Controller
 public class VotingController {
 
+    private CitizenService citizenService;
+
     @Autowired
+    public VotingController(CitizenService citizenService) {
+        this.citizenService = citizenService;
+    }
+
+    @PostMapping("/doLogin")
+    public  String doLogin(Citizen citizen,HttpSession session,Model model){
+            return citizenService.doLogin(citizen,session,model);
+    }
+    @RequestMapping("/voteFor")
+    public String voteFor(@RequestParam int id, HttpSession session) {
+          return  citizenService.voteFor(id,session);
+    }
+
+    @GetMapping("")
+    public String doAction(Model model) {
+        model.addAttribute("citizen",new Citizen());
+        return "vote";
+    }
+
+}
+/*@Autowired
     private CitizenRepo citizenRepo;
     @Autowired
     private CandidateRepo candidateRepo;
@@ -60,9 +78,7 @@ public String doAction(Model model) {
         } else {
             return "/alreadyVoted";
         }
-    }
-}
-
+    }*/
 
 
   
