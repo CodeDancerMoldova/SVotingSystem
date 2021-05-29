@@ -1,14 +1,14 @@
 package com.example.VotingSystem.Controllers;
-
 import com.example.VotingSystem.Services.CitizenService;
 import com.example.VotingSystem.entities.Citizen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+
 
 @Controller
 public class VotingController {
@@ -21,9 +21,10 @@ public class VotingController {
     }
 
     @PostMapping("/doLogin")
-    public  String doLogin(Citizen citizen,HttpSession session,Model model){
-            return citizenService.doLogin(citizen,session,model);
+    public  String doLogin(@Valid Citizen citizen, HttpSession session, Model model){
+              return citizenService.doLogin(citizen,session,model);
     }
+
     @RequestMapping("/voteFor")
     public String voteFor(@RequestParam int id, HttpSession session) {
           return  citizenService.voteFor(id,session);
